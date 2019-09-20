@@ -13,18 +13,18 @@ import SwiftUI
 
 public struct AnglePicker : View {
     public var angle: Binding<Angle>
-    public var color: Color = Color.white
+    public var circleColor: Color = Color.blue
     public var selectionColor: Color = Color.white
-    public var strokeColor: Color = Color.gray
+    public var selectionBorderColor: Color = Color.white
     public var strokeWidth: CGFloat = 30
     
     public var body: some View {
         GeometryReader { geometry -> CircleSlider in
             return CircleSlider(frame: geometry.frame(in: CoordinateSpace.local),
                                 angle: self.angle,
-                                color: self.color,
+                                circleColor: self.circleColor,
                                 selectionColor: self.selectionColor,
-                                strokeColor: self.strokeColor,
+                                selectionBorderColor: self.selectionBorderColor,
                                 strokeWidth: self.strokeWidth)
         }
         .aspectRatio(1, contentMode: .fit)
@@ -34,9 +34,9 @@ public struct AnglePicker : View {
 public struct CircleSlider: View {
     public var frame: CGRect
     public var angle: Binding<Angle>
-    public var color: Color
+    public var circleColor: Color
     public var selectionColor: Color
-    public var strokeColor: Color
+    public var selectionBorderColor: Color
     public var strokeWidth: CGFloat
 
     @State private var position: CGPoint = CGPoint.zero
@@ -45,18 +45,18 @@ public struct CircleSlider: View {
         let indicatorOffset = CGSize(width: cos(angle.wrappedValue.radians) * Double(frame.midX - strokeWidth / 2), height: -sin(angle.wrappedValue.radians) * Double(frame.midY - strokeWidth / 2))
         return ZStack(alignment: .center) {
             Circle()
-                .strokeBorder(Color.blue, lineWidth: strokeWidth)
+                .strokeBorder(circleColor, lineWidth: strokeWidth)
                 .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged(self.update(value:))
             )
             Circle()
-                .fill(color)
+                .fill(selectionColor)
                 .frame(width: strokeWidth, height: strokeWidth, alignment: .center)
                 .fixedSize()
                 .offset(indicatorOffset)
                 .allowsHitTesting(false)
                 .overlay(
                     Circle()
-                        .stroke(Color.white, lineWidth: 3)
+                        .stroke(selectionBorderColor, lineWidth: 3)
                         .offset(indicatorOffset)
                         .allowsHitTesting(false)
             )
