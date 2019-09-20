@@ -18,6 +18,14 @@ public struct AnglePicker : View {
     public var selectionBorderColor: Color = Color.white
     public var strokeWidth: CGFloat = 30
     
+    public init(angle: Binding<Angle>, circleColor: Color, selectionColor: Color, selectionBorderColor: Color, strokeWidth: CGFloat) {
+        self.angle = angle
+        self.circleColor = circleColor
+        self.selectionColor = selectionColor
+        self.selectionBorderColor = selectionBorderColor
+        self.strokeWidth = strokeWidth
+    }
+    
     public var body: some View {
         GeometryReader { geometry -> CircleSlider in
             return CircleSlider(frame: geometry.frame(in: CoordinateSpace.local),
