@@ -13,12 +13,12 @@ import SwiftUI
 
 public struct AnglePicker : View {
     public var angle: Binding<Angle>
-    public var circleColor: Color = Color.blue
-    public var selectionColor: Color = Color.white
-    public var selectionBorderColor: Color = Color.white
-    public var strokeWidth: CGFloat = 30
+    public var circleColor: Color
+    public var selectionColor: Color
+    public var selectionBorderColor: Color
+    public var strokeWidth: CGFloat
     
-    public init(angle: Binding<Angle>, circleColor: Color, selectionColor: Color, selectionBorderColor: Color, strokeWidth: CGFloat) {
+    public init(angle: Binding<Angle>, circleColor: Color = Color.blue, selectionColor: Color = Color.white, selectionBorderColor: Color = Color.white, strokeWidth: CGFloat = 30) {
         self.angle = angle
         self.circleColor = circleColor
         self.selectionColor = selectionColor
